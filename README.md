@@ -72,37 +72,6 @@ cd lang-x
 
 ---
 
-## File Structure
-
-lang-x/
-│── backend/ # Backend (Flask API)
-│ ├── models/ # AI models for processing
-│ ├── uploads/ # Uploaded audio files
-│ ├── utils/ # Utility scripts for processing
-│ │ ├── audio_utils.py # Helper functions for audio processing
-│ ├── app.py # Entry point for backend API
-│ ├── server.py # Main Flask server handling requests
-│ ├── transcribe.py # Handles speech-to-text processing
-│ ├── .env # Environment variables (not shared)
-│ ├── requirements.txt # Python dependencies
-│── src/ # Frontend (React)
-│ ├── components/ # UI Components
-│ │ ├── AudioPlayer.js # Audio playback component
-│ │ ├── Layout.js # Page layout component
-│ │ ├── Recorder.js # Voice recorder component
-│ │ ├── Sidebar.js # Sidebar navigation
-│ ├── pages/ # Main pages
-│ │ ├── Home.js # Home page
-│ ├── api.js # API calls to backend
-│ ├── App.js # Main React App component
-│ ├── index.js # App entry point
-│── public/ # Static assets
-│── .gitignore # Git ignored files
-│── package.json # Node.js dependencies
-│── README.md # Documentation
-
----
-
 ## API Endpoints Used
 
 🔹 Frontend Requests
