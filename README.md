@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+# Lang-X
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Lang-X is an AI-powered voice cloning application that records or accepts an audio sample in English and converts it into Spanish, French, and Mandarin while preserving the original speaker's voice characteristics. The application leverages **OpenAI Whisper** for speech-to-text, **a translation model** for multilingual support, and **Coqui TTS** for text-to-speech synthesis.
 
-## Available Scripts
+## Features 🚀
 
-In the project directory, you can run:
+- 🎙️ **Voice Recording & Upload**: Capture voice directly from the browser.
+- 📝 **Speech-to-Text (Transcription)**: Converts recorded speech into text using OpenAI Whisper.
+- 🌍 **Text Translation**: Translates transcribed text into multiple languages.
+- 🗣️ **Voice Cloning & Synthesis**: Generates speech in the translated language while preserving the speaker's voice.
+- 📂 **Download & Playback**: Listen to or download the generated speech output.
+- 🎨 **Modern UI**: Built using React and Material-UI for a smooth user experience.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Demo
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🔗 \*\*Live Demo: link to be updated
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
+### **Frontend**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- ⚛️ React (Create-React-App)
+- 🎨 Material-UI (MUI)
+- 📡 Fetch API for handling requests
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Backend**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 🐍 Flask (Python)
+- 🗣️ OpenAI Whisper for transcription
+- 🌍 Translation model for multilingual support
+- 🎤 Coqui TTS for speech synthesis
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation & Setup
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 1️⃣ Clone the Repository
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+git clone https://github.com/yourusername/lang-x.git
+cd lang-x
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 2️⃣ **Backend Setup (Flask API)**
 
-## Learn More
+    🔹 **Install Dependencies**
+        cd backend
+        python3 -m venv venv
+        source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+        pip install -r requirements.txt
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+        *Configure Environment Variables*
+        Create a .env file inside the backend directory and add the required API keys and configurations.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+        *Run the Flask Server*
+        python server.py
 
-### Code Splitting
+        (Make sure it runs on http://192.168.0.100:5000 as per your setup.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 3 **Frontend Setup (React App)**
 
-### Analyzing the Bundle Size
+    🔹 **Install Dependencies**
+        cd ../  # Move to the root directory
+        npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    🔹 **Start the React App**
+        npm start
 
-### Making a Progressive Web App
+        (Runs the app on http://localhost:3000.)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## File Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+lang-x/
+│── backend/ # Backend (Flask API)
+│ ├── models/ # AI models for processing
+│ ├── uploads/ # Uploaded audio files
+│ ├── utils/ # Utility scripts for processing
+│ │ ├── audio_utils.py # Helper functions for audio processing
+│ ├── app.py # Entry point for backend API
+│ ├── server.py # Main Flask server handling requests
+│ ├── transcribe.py # Handles speech-to-text processing
+│ ├── .env # Environment variables (not shared)
+│ ├── requirements.txt # Python dependencies
+│── src/ # Frontend (React)
+│ ├── components/ # UI Components
+│ │ ├── AudioPlayer.js # Audio playback component
+│ │ ├── Layout.js # Page layout component
+│ │ ├── Recorder.js # Voice recorder component
+│ │ ├── Sidebar.js # Sidebar navigation
+│ ├── pages/ # Main pages
+│ │ ├── Home.js # Home page
+│ ├── api.js # API calls to backend
+│ ├── App.js # Main React App component
+│ ├── index.js # App entry point
+│── public/ # Static assets
+│── .gitignore # Git ignored files
+│── package.json # Node.js dependencies
+│── README.md # Documentation
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## API Endpoints Used
 
-### `npm run build` fails to minify
+🔹 Frontend Requests
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    Method      Endpoint            Description
+    POST        /upload             Uploads recorded audio
+    POST        /transcribe         Transcribes speech to text
+    POST        /translate          Translates text to Spanish, French, or Mandarin
+    POST        /synthesize         Converts translated text to speech
+
+---
+
+### Contribution
+
+    Feel free to fork this repository, open issues, and submit pull requests!
+
+    git checkout -b feature-branch
+    git commit -m "Add new feature"
+    git push origin feature-branch
+
+---
+
+### License
+
+📜 This project is licensed under the MIT License.
+
+### Contact
+
+If you have any questions, feel free to reach out via GitHub Issues. 🚀
+
+---
+
+This **README.md** provides everything needed to **set up and run the repository locally** while also describing **features, tech stack, API usage, and contribution guidelines**.
+
+Let me know if you’d like any modifications! 🚀
+
+**Made by Siddhartha Srivastava**
+Contact: realsiddhartha@outlook.com
