@@ -1,0 +1,64 @@
+/* General App Styling */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif; /* MUI Default Font */
+  background-color: #121212; /* Dark Mode */
+  color: #ffffff;
+}
+
+/* App Wrapper */
+.App {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background-color: #1e1e2d;
+  color: #ffffff;
+}
+
+/* Main Content */
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+/* Buttons */
+button {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+/* Recorder Section */
+.recorder {
+  text-align: center;
+  padding: 20px;
+}
+
+/* Audio Player */
+.audio-container {
+  margin-top: 10px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #1e1e2d;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
