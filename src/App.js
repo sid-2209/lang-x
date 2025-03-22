@@ -1,14 +1,14 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Home from "./pages/Home";
 import Recorder from "./components/Recorder";
+import VoiceCloning from "./components/VoiceCloning";
 import {
     Box, CssBaseline, CircularProgress, LinearProgress, Button, MenuItem,
     Select, Typography, Switch
 } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
-import { ThemeProvider } from "@mui/material/styles";
 import "react-toastify/dist/ReactToastify.css";
 
 const API_URL = "http://192.168.0.100:5000"; // Ensure correct API URL
@@ -169,6 +169,9 @@ function App({ darkMode, setDarkMode }) {
                                 </Box>
                             }
                         />
+
+                        {/* Voice Cloning Route */}
+                        <Route path="/voice-cloning" element={<VoiceCloning />} />
 
                         {/* Fallback Route (404) */}
                         <Route path="*" element={<Typography variant="h4">Page Not Found</Typography>} />

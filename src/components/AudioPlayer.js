@@ -7,13 +7,13 @@ const AudioPlayer = ({ audioBlob }) => {
         if (audioBlob) {
             const url = URL.createObjectURL(audioBlob);
             setAudioURL(url);
-            
+
             // Cleanup function to revoke the object URL
             return () => URL.revokeObjectURL(url);
         }
     }, [audioBlob]);
 
-    if (!audioBlob) return null;
+    if (!audioBlob) return <p>No audio available.</p>;
 
     return (
         <div>

@@ -8,6 +8,8 @@ from werkzeug.utils import secure_filename
 from transformers import pipeline
 from TTS.api import TTS  # Import Coqui TTS
 from utils.audio_utils import convert_to_wav, is_allowed_file  # Import audio utility functions
+from scripts.extract_speaker_embedding import extract_embedding  # Import speaker embedding extraction
+from scripts.tts_with_cloning import generate_speech  # Import voice cloning synthesis
 
 # Load environment variables
 dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
@@ -108,13 +110,13 @@ def transcribe_audio():
     else:
         return jsonify({"error": "Invalid file type"}), 400
 
-# Translate Text (Fixed src_lang & tgt_lang)
+# Translate Text
 @app.route("/translate", methods=["POST"])
 def translate_text():
     data = request.json
     text = data.get("text", "")
-    detected_language = data.get("detected_language", "en")  # Accept detected language dynamically
-    target_language = data.get("language", "es")  # Default to Spanish if not specified
+    detected_language = data.get("detected_language", "en")
+    target_language = data.get("language", "es")
 
     if not text:
         return jsonify({"error": "No text provided"}), 400
@@ -124,12 +126,11 @@ def translate_text():
 
     try:
         logging.info(f"Translating from {detected_language} to {target_language}: {text}")
-        
-        # Ensure we pass src_lang and tgt_lang
+
         translated_text = translation_model(
             text, src_lang=detected_language, tgt_lang=target_language, max_length=400
         )[0]["translation_text"]
-        
+
         return jsonify({
             "translated_text": translated_text,
             "detected_language": detected_language
@@ -153,12 +154,40 @@ def synthesize_speech():
     output_file = os.path.join(PROCESSED_FOLDER, "speech.wav")
 
     try:
-        # Use Coqui TTS to generate speech
         tts_model.tts_to_file(text=text, file_path=output_file)
-
         return send_file(output_file, as_attachment=True, mimetype="audio/wav")
     except Exception as e:
         logging.error(f"Error during TTS synthesis: {e}")
+        return jsonify({"error": str(e)}), 500
+
+# Clone Voice (Speaker Adaptation)
+@app.route("/clone-voice", methods=["POST"])
+def clone_voice():
+    if "file" not in request.files:
+        return jsonify({"error": "No voice file provided"}), 400
+
+    file = request.files["file"]
+    text = request.form.get("text", "")
+
+    if file.filename == "" or not text:
+        return jsonify({"error": "No file or text provided"}), 400
+
+    filename = secure_filename(file.filename)
+    file_path = os.path.join(UPLOAD_FOLDER, filename)
+    file.save(file_path)
+
+    try:
+        # Extract speaker embedding
+        embedding_path = os.path.join(PROCESSED_FOLDER, "speaker_embedding.npy")
+        extract_embedding(file_path, embedding_path)
+
+        # Generate cloned speech
+        output_audio_path = os.path.join(PROCESSED_FOLDER, "cloned_speech.wav")
+        generate_speech(text, embedding_path, output_audio_path)
+
+        return send_file(output_audio_path, as_attachment=True, mimetype="audio/wav")
+    except Exception as e:
+        logging.error(f"Error during voice cloning: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
