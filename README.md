@@ -108,5 +108,5 @@ This **README.md** provides everything needed to **set up and run the repository
 
 Let me know if you’d like any modifications! 🚀
 
-**Made by Siddhartha Srivastava**
+**Developed by Siddhartha Srivastava**
 Contact: realsiddhartha@outlook.com
